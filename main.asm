@@ -27,9 +27,11 @@
     playerX     dd 0
     playerY     dd 0
     playerMatrixPosition dd 0
+    playerPoints dd 0
 ;---------------------------------------------
     open_error_msg db 'Error al abrir el archivo', 0
     read_error_msg db 'Error al leer el archivo', 0
+    points_msg     db 'Puntos: ',0
 .CODE
 
 
@@ -129,6 +131,9 @@ print_loop:
     jmp     print_loop      ; Vuelve al inicio del bucle
 
 end_print:
+    nwln
+    PutStr points_msg
+    PutLInt [playerPoints]
     mov     EAX, 6         ; Número de sistema para cerrar un archivo
     int     0x80           ; Llama al sistema
 
@@ -156,9 +161,12 @@ playerUp:
     add     ebx, [playerX]                 ; Suma la columna al resultado anterior
     cmp     byte [ESI + EBX - 80], '#'
     je      playerMovement
+    cmp     byte [ESI + EBX - 80], 'o'
+    je      addPointU
+    contU:
     mov     [ESI + EBX] , AL
     sub     ebx, 80
-    mov     AL, '<'
+    mov     AL, 'v'
     mov     [ESI + EBX], AL
     sub     dword [playerY],  1
     call    updateMap
@@ -171,9 +179,12 @@ playerDown:
     add     ebx, [playerX]                 ; Suma la columna al resultado anterior
     cmp     byte [ESI + EBX + 80], '#'
     je      playerMovement
+    cmp     byte [ESI + EBX + 80], 'o'
+    je      addPointD
+    contD:
     mov     [ESI + EBX] , AL
     add     ebx, 80
-    mov     AL, '<'
+    mov     AL, '^'
     mov     [ESI + EBX], AL
     add     dword [playerY],  1
     call    updateMap
@@ -186,6 +197,9 @@ playerRight:
     add     ebx, [playerX]                 ; Suma la columna al resultado anterior
     cmp     byte [ESI + EBX + 1], '#'
     je      playerMovement
+    cmp     byte [ESI + EBX + 1], 'o'
+    je      addPointR
+    contR:
     mov     [ESI + EBX] , AL
     add     ebx, 1
     mov     AL, '<'
@@ -199,10 +213,13 @@ playerLeft:
     imul    ebx, 80                         ; Multiplica la fila por el número de columnas (80 columnas en total,)
     add     ebx, [playerX]                 ; Suma la columna al resultado anterior
     cmp     byte [ESI + EBX - 1], '#'
-    je      playerMovement
+    je      playerMovement   
+    cmp     byte [ESI + EBX - 1], 'o'
+    je      addPointL
+    contL:
     mov     [ESI + EBX] , AL
     sub     ebx, 1
-    mov     AL, '<'
+    mov     AL, '>'
     mov     [ESI + EBX], AL
     sub     dword [playerX],  1
     call    updateMap
@@ -215,6 +232,9 @@ updateMap:
     jz      end_print       ; Si es cero, termina el bucle
     PutCh   AL              ; Imprime el carácter en la consola
     jmp     printMap        ; Vuelve al inicio del bucle
+    nwln
+    PutStr points_msg
+    PutLInt [playerPoints]
 
 
 exit_program:
@@ -229,3 +249,16 @@ error_open:
 error_read:
     PutStr  read_error_msg
     jmp     exit_program
+
+addPointD:
+    inc dword [playerPoints]
+    jmp contD
+addPointU:
+    inc dword [playerPoints]
+    jmp contU
+addPointR:
+    inc dword [playerPoints]
+    jmp contR
+addPointL:
+    inc dword [playerPoints]
+    jmp contL
