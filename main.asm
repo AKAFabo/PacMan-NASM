@@ -11,8 +11,9 @@
 
 .UDATA
     ; Aquí van tus variables no inicializadas
-    worldSpace resb 1920 
-    levelChosen resb 1
+    worldSpace      resb 1920 
+    levelChosen     resb 1
+    playerDirection resb 1
 
 .DATA
     lvlMsg db "Escoja el nivel a cargar (1 = Nivel1, 2 = Nivel2, 3 = Nivel3): ",0
@@ -115,12 +116,10 @@ process_playerX:
 calculateMatrixPosition:
 ; Calcula la posición del elemento en la matriz
     mov     AL, '<'
-    ;mov     eax, base_matriz            ; Carga la dirección base de la matriz en eax
     mov     ebx, [playerY]                ; Carga el índice de la fila en ebx
     imul    ebx, 80                         ; Multiplica la fila por el número de columnas (80 columnas en total,)
     add     ebx, [playerX]                 ; Suma la columna al resultado anterior
     mov [ESI + EBX] , AL
-    ;add     eax, ebx                    ; Suma el resultado a la dirección base de la matriz, 
 
 print_loop:
     lodsb                   ; Carga el siguiente byte de worldSpace en AL
@@ -130,11 +129,94 @@ print_loop:
     jmp     print_loop      ; Vuelve al inicio del bucle
 
 end_print:
-    ; Cierra el archivo
     mov     EAX, 6         ; Número de sistema para cerrar un archivo
     int     0x80           ; Llama al sistema
-    ; Salta al final del programa
-    jmp     exit_program
+
+
+
+playerMovement:
+    mov     ESI, worldSpace
+    GetCh   [playerDirection]
+    cmp     byte [playerDirection], 'w'
+    je      playerUp
+    cmp     byte [playerDirection], 'a'
+    je      playerLeft
+    cmp     byte [playerDirection], 's'
+    je      playerDown
+    cmp     byte [playerDirection], 'd'
+    je      playerRight
+    cmp     byte [playerDirection], 'f'
+    je      exit_program
+    jmp     playerMovement
+
+playerUp:
+    mov     AL, ' '    
+    mov     ebx, [playerY]                ; Carga el índice de la fila en ebx
+    imul    ebx, 80                         ; Multiplica la fila por el número de columnas (80 columnas en total,)
+    add     ebx, [playerX]                 ; Suma la columna al resultado anterior
+    cmp     byte [ESI + EBX - 80], '#'
+    je      playerMovement
+    mov     [ESI + EBX] , AL
+    sub     ebx, 80
+    mov     AL, '<'
+    mov     [ESI + EBX], AL
+    sub     dword [playerY],  1
+    call    updateMap
+    jmp     playerMovement
+
+playerDown:
+    mov     AL, ' '   
+    mov     ebx, [playerY]                ; Carga el índice de la fila en ebx
+    imul    ebx, 80                         ; Multiplica la fila por el número de columnas (80 columnas en total,)
+    add     ebx, [playerX]                 ; Suma la columna al resultado anterior
+    cmp     byte [ESI + EBX + 80], '#'
+    je      playerMovement
+    mov     [ESI + EBX] , AL
+    add     ebx, 80
+    mov     AL, '<'
+    mov     [ESI + EBX], AL
+    add     dword [playerY],  1
+    call    updateMap
+    jmp     playerMovement
+
+playerRight:
+    mov     AL, ' '   
+    mov     ebx, [playerY]                ; Carga el índice de la fila en ebx
+    imul    ebx, 80                         ; Multiplica la fila por el número de columnas (80 columnas en total,)
+    add     ebx, [playerX]                 ; Suma la columna al resultado anterior
+    cmp     byte [ESI + EBX + 1], '#'
+    je      playerMovement
+    mov     [ESI + EBX] , AL
+    add     ebx, 1
+    mov     AL, '<'
+    mov     [ESI + EBX], AL
+    add     dword [playerX],  1
+    call    updateMap
+    jmp     playerMovement
+playerLeft:
+    mov     AL, ' '   
+    mov     ebx, [playerY]                ; Carga el índice de la fila en ebx
+    imul    ebx, 80                         ; Multiplica la fila por el número de columnas (80 columnas en total,)
+    add     ebx, [playerX]                 ; Suma la columna al resultado anterior
+    cmp     byte [ESI + EBX - 1], '#'
+    je      playerMovement
+    mov     [ESI + EBX] , AL
+    sub     ebx, 1
+    mov     AL, '<'
+    mov     [ESI + EBX], AL
+    sub     dword [playerX],  1
+    call    updateMap
+    jmp     playerMovement
+
+updateMap:
+    printMap:
+    lodsb                   ; Carga el siguiente byte de worldSpace en AL
+    test    AL, AL          ; Comprueba si AL es cero (fin de la cadena)
+    jz      end_print       ; Si es cero, termina el bucle
+    PutCh   AL              ; Imprime el carácter en la consola
+    jmp     printMap        ; Vuelve al inicio del bucle
+
+
 exit_program:
 nwln
     .EXIT
