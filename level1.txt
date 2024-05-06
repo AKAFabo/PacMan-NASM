@@ -1,3 +1,4 @@
+               CesarHerrera - Arquitectura de Computadores
 ################################################################################
 #oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo#
 #oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo#
@@ -16,5 +17,5 @@
 #oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo#
 #oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo#
 ################################################################################
-21,9
-22,22
+21,09
+00,00
