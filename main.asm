@@ -16,15 +16,21 @@
 
 .DATA
     ; Aquí van tus variables inicializadas
+    filas dd 18
+    columnas dd 80
     msg db 'Hola mundo!', 0
     filename db 'level1.txt', 0
     playerX     dd 0
     playerY     dd 0
+    playerMatrixPosition dd 0
+    open_error_msg db 'Error al abrir el archivo', 0
+    read_error_msg db 'Error al leer el archivo', 0
 
 .CODE
 readFile:
 
     ; Abre el archivo
+
     mov     EAX, 5         ; Número de sistema para abrir un archivo
     mov     EBX, filename ; Dirección del nombre del archivo
     mov     ECX, 0         ; Modo de apertura (lectura)
@@ -77,12 +83,19 @@ process_playerX:
     mov     CH, 0           ; Limpia el registro CH
     add    [playerX], CX    ; Guarda el número en playerY
 
-;Memory addresses test
-;End test
-
-
-    ; Imprime el contenido de worldSpace
     mov     ESI, worldSpace
+    sub     AL, AL
+
+calculateMatrixPosition:
+; Calcula la posición del elemento en la matriz
+    mov     AL, '<'
+    ;mov     eax, base_matriz            ; Carga la dirección base de la matriz en eax
+    mov     ebx, [playerY]                ; Carga el índice de la fila en ebx
+    imul    ebx, 80                         ; Multiplica la fila por el número de columnas (80 columnas en total,)
+    add     ebx, [playerX]                 ; Suma la columna al resultado anterior
+    mov [ESI + EBX] , AL
+    ;add     eax, ebx                    ; Suma el resultado a la dirección base de la matriz, 
+
 print_loop:
     lodsb                   ; Carga el siguiente byte de worldSpace en AL
     test    AL, AL          ; Comprueba si AL es cero (fin de la cadena)
@@ -96,6 +109,10 @@ end_print:
     int     0x80           ; Llama al sistema
     ; Salta al final del programa
     jmp     exit_program
+exit_program:
+nwln
+    .EXIT
+
 
 ;Manejo de errores
 error_open:
@@ -104,10 +121,3 @@ error_open:
 error_read:
     PutStr  read_error_msg
     jmp     exit_program
-
-open_error_msg db 'Error al abrir el archivo', 0
-read_error_msg db 'Error al leer el archivo', 0
-
-exit_program:
-nwln
-    .EXIT
