@@ -11,28 +11,52 @@
 
 .UDATA
     ; Aquí van tus variables no inicializadas
-    worldSpace resb 1920
-
+    worldSpace resb 1920 
+    levelChosen resb 1
 
 .DATA
-    ; Aquí van tus variables inicializadas
+    lvlMsg db "Escoja el nivel a cargar (1 = Nivel1, 2 = Nivel2, 3 = Nivel3): ",0
+    l1 db "level1.txt",0
+    l2 db "level2.txt",0
+    l3 db "level3.txt",0
+;---------------------------------------------
     filas dd 18
     columnas dd 80
-    msg db 'Hola mundo!', 0
-    filename db 'level1.txt', 0
+;---------------------------------------------
     playerX     dd 0
     playerY     dd 0
     playerMatrixPosition dd 0
+;---------------------------------------------
     open_error_msg db 'Error al abrir el archivo', 0
     read_error_msg db 'Error al leer el archivo', 0
-
 .CODE
+
+
+main:
+    PutStr  lvlMsg
+    GetCh   [levelChosen]
+    cmp     byte [levelChosen], '1'
+    je      loadLevel1
+    cmp     byte [levelChosen], '2'
+    je      loadLevel2
+    cmp     byte [levelChosen], '3'
+    je      loadLevel3
+    jmp     main
+
+loadLevel1:
+    mov     EBX, l1                 ;Carga level1 en memoria
+    jmp     readFile
+loadLevel2:
+    mov     EBX, l2                 ;Carga level2 en memoria
+    jmp     readFile
+loadLevel3:
+    mov     EBX, l3                 ;Carga level3 en memoria
+
 readFile:
 
     ; Abre el archivo
 
     mov     EAX, 5         ; Número de sistema para abrir un archivo
-    mov     EBX, filename ; Dirección del nombre del archivo
     mov     ECX, 0         ; Modo de apertura (lectura)
     int     0x80           ; Llama al sistema
 
@@ -59,6 +83,7 @@ process_playerY:
     mov     CX, 0           ; Inicializa CX
     mov     CL, [ESI+1517]  ; Primer dígito del primer número
     sub     CL, '0'         ; Convierte el carácter en número
+    imul    CX, 10
     mov     CH, 0           ; Limpia el registro CH
     mov    [playerY], CL   ; Guarda el número en playerY
 
@@ -73,6 +98,7 @@ process_playerX:
     mov     CX, 0           ; Inicializa CX
     mov     CL, [ESI+1520]  ; Primer dígito del primer número
     sub     CL, '0'         ; Convierte el carácter en número
+    imul    CX, 10
     mov     CH, 0           ; Limpia el registro CH
     mov    [playerX], CX   ; Guarda el número en playerY
 

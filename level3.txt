@@ -1,0 +1,21 @@
+               CesarHerrera - Arquitectura de Computadores
+################################################################################
+#oooooooooooooooo####oooooooooooooooooooooooooooooooooooooooooooooooooooooooooo#
+#ooooooooooooooooooooooooooooooooooooooooooooo#####oooooooooooooooooooooooooooo#
+#oo###ooo#################################oooo#####oooooooo#####ooooooooooooooo#
+#oo###ooo###oooooooooooooooooooooooooooooooooo#####oooooooo###oo##oo###oooooooo#
+#oo###ooo###ooooooooooooooooooooooooooooooo#########ooooooo###oooooo########ooo#
+#oo###ooo###oooooooooooooooooooo###oooooooo###ooooo###ooooo###oooooo###oooooooo#
+#oo###ooo###############ooooo###oooo###oooo###oooo###oooooo#####oo#####oooooooo#
+#oo###ooo###ooooooooooooooooo###o##o###oooo###ooooo###ooooo###oooooo###oooooooo#
+#oo###ooo###############ooooo###oooo###oooo###oooo###oooooo############oooooooo#
+#oo###ooo###ooooooooooooooooo###oooo###oooo###ooooo###ooooo###oooooo###oooooooo#
+#oo###ooo###ooooooooooooooooooooooooooooooo###ooo###ooooooo###oooooo###oooooooo#
+#oo###ooo###ooooooooooooooooo#################ooo##########oooooooooooooooooooo#
+#oo###ooo###ooooooo###ooooooooooooooooooooooooooooooooooooooooooooooooooooooooo#
+#oo###ooo###ooooooo#####################################ooooooooooo###ooooooooo#
+#oo###ooo###ooooooo#####################################ooooooo###ooooooooooooo#
+#oo###ooo###ooooooo###ooooooooooooooooooooooooooooooooooooooooo###ooooooooooooo#
+################################################################################
+06,10
+00,00

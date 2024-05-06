@@ -1,0 +1,21 @@
+               CesarHerrera - Arquitectura de Computadores
+################################################################################
+###oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo#
+#o##ooooooooooooo#ooooooooooooo##ooo##ooooooooooooo#ooooooooooooo##ooo##ooooooo#
+#oo##oooooooooooo#oooooooooooo##oo#oo##oooooooooooo#oooooooooooo##oo#oo##oooooo#
+#ooo##ooooooooooo#ooooooooooo##ooo#ooo##ooooooooooo#ooooooooooo##ooo#ooo##ooooo#
+#oooo##oooooooooo#oooooooooo##oooo#oooo##oooooooooo#oooooooooo##oooo#oooo##oooo#
+#ooooo##ooooooooo#ooooooooo##ooooo#ooooo##ooooooooo#ooooooooo##ooooo#ooooo##ooo#
+#oooooo##oooooooo#oooooooo##oooooo#oooooo##oooooooo#oooooooo##oooooo#oooooo##oo#
+#ooooooo##ooooooo#ooooooo##ooooooo#ooooooo##ooooooo#ooooooo##ooooooo#ooooooo##o#
+#oooooooo##oooooo#oooooo##oooooooo#oooooooo##oooooo#oooooo##oooooooo#oooooooooo#
+#ooooooooo##ooooo#ooooo##ooooooooo#ooooooooo##ooooo#ooooo##ooooooooo#oooooooooo#
+#oooooooooo##oooo#oooo##oooooooooo#oooooooooo##oooo#oooo##oooooooooo#oooooooooo#
+#ooooooooooo##ooo#ooo##ooooooooooo#ooooooooooo##ooo#ooo##ooooooooooo#oooooooooo#
+#oooooooooooo##oo#oo##oooooooooooo#oooooooooooo##oo#oo##oooooooooooo#oooooooooo#
+####oooooooooo##ooo##ooooooooooooo#ooooooooooooo##ooo##ooooooooooooo#oooooooooo#
+####ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo#
+####ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo#
+################################################################################
+05,10
+00,00
